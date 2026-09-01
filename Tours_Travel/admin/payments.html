@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments | TravelGo Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="sidebar-brand">
+                Travel<span>Go</span>
+            </a>
+            <span class="sidebar-badge">Admin</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-house-door-fill"></i><span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="tours.html" class="nav-link">
+                    <i class="bi bi-compass-fill"></i><span>Tours</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="bookings.html" class="nav-link">
+                    <i class="bi bi-calendar-check-fill"></i><span>Bookings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="destinations.html" class="nav-link">
+                    <i class="bi bi-geo-alt-fill"></i><span>Destinations</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="payments.html" class="nav-link active">
+                    <i class="bi bi-credit-card-fill"></i><span>Payments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="settings.html" class="nav-link">
+                    <i class="bi bi-gear-fill"></i><span>Settings</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="sidebar-user-avatar admin-avatar-initials">A</div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name admin-user-name">Admin TravelGo</div>
+                </div>
+                <a href="#" class="text-white opacity-75 btn-admin-logout" title="Logout"><i class="bi bi-box-arrow-right fs-5"></i></a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-wrapper">
+        <!-- Topbar -->
+        <header id="topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"><i class="bi bi-list"></i></button>
+            </div>
+            <div class="topbar-right">
+                <div class="dropdown">
+                    <a href="#" class="admin-dropdown-toggle dropdown-toggle" data-bs-toggle="dropdown">
+                        <div class="admin-avatar-thumb admin-avatar-initials">A</div>
+                        <div class="d-none d-sm-block text-start">
+                            <div class="fw-bold small lh-1 admin-user-name">Admin TravelGo</div>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3">
+                        <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger btn-admin-logout" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div>
+                    <h2 class="h3 fw-bold mb-1">Payment Transactions</h2>
+                    <p class="text-muted small mb-0">Track payment transactions (<span id="payments-count">0</span> total).</p>
+                </div>
+                <div class="admin-card px-3 py-2 mb-0 border-0 bg-success-subtle text-success-emphasis rounded-3">
+                    <div class="small fw-semibold">Total Paid Volume</div>
+                    <div class="fs-5 fw-bold" id="payments-total-sum">₹0</div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="admin-card p-3 mb-4">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input type="text" id="search-payment" class="form-control" placeholder="Search by Transaction ID, Booking ID, Customer Name...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="filter-payment-status" class="form-select">
+                            <option value="All">All Payment Statuses</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed">Failed</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Table Card -->
+            <div class="admin-card">
+                <div class="table-responsive">
+                    <table class="table admin-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-tbody">
+                            <!-- Rendered dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin-data.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/admin-payments.js"></script>
+</body>
+</html>
